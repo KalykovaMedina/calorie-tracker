@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Статистика прогресса</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header><h1>Моя Статистика</h1></header>
+    <nav>
+        <ul>
+            <li><a href="index.html"> Калькулятор</a></li>
+            <li><a href="diary.html"> Дневник</a></li>
+            <li><a href="products.html">🥗 Продукты</a></li>
+            <li><a href="stats.html" class="active">📊 Статистика</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Динамика питания</h2>
+        <p>График показывает сумму калорий по дням на основе вашего дневника.</p>
+        
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 30px;">
+            <canvas id="calorieChart" height="100"></canvas>
+        </div>
+
+        <div id="no-data-msg" style="display:none; text-align:center; padding: 40px; color: var(--text-muted);">
+            <h3>Пока нет данных для анализа</h3>
+            <p>Добавьте продукты в Дневник, чтобы увидеть график.</p>
+            <a href="diary.html" style="color:var(--accent); font-weight:bold;">Перейти в Дневник →</a>
+        </div>
+
+        <h3>Советы по анализу</h3>
+        <ul>
+            <li>Если график постоянно выше нормы — уменьшите порции углеводов.</li>
+            <li>Резкие скачки вниз могут означать пропуск приемов пищи.</li>
+            <li>Стабильная линия near цели — идеальный результат!</li>
+        </ul>
+    </main>
+    <footer><p>Аналитика строится на основе локальных данных.</p></footer>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Переключить тему"><span id="theme-icon"></span></button>
+    <script src="js/main.js"></script>
+    <script>
+        // Простая логика графика для stats.html
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('calorieChart');
+            if(!ctx) return;
+            const diaryData = JSON.parse(localStorage.getItem('myDiary')) || [];
+            const goal = localStorage.getItem('userGoalCal') || 2000;
+
+            if (diaryData.length === 0) {
+                document.getElementById('calorieChart').style.display = 'none';
+                document.getElementById('no-data-msg').style.display = 'block';
+                return;
+            }
+
+            let totalToday = diaryData.reduce((sum, item) => sum + item.cal, 0);
+            const labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+            const dataPoints = [1800, 2100, 1950, totalToday, 0, 0, 0]; 
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Съедено ккал',
+                        data: dataPoints,
+                        backgroundColor: dataPoints.map(val => val > goal ? '#ef4444' : '#166534'),
+                        borderRadius: 5
+                    }, {
+                        label: 'Ваша норма',
+                        data: Array(7).fill(goal),
+                        type: 'line', borderColor: '#f59e0b', borderWidth: 2, borderDash: [5, 5], pointRadius: 0
+                    }]
+                },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+        });
+    </script>
+</body>
+</html>

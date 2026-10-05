@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Дневник питания</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <header><h1>Мой Дневник Питания</h1></header>
+    <nav>
+        <ul>
+            <li><a href="index.html">🧮 Калькулятор</a></li>
+            <li><a href="diary.html" class="active">📝 Дневник</a></li>
+            <li><a href="products.html">🥗 Продукты</a></li>
+            <li><a href="stats.html">📊 Статистика</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Запись приёмов пищи</h2>
+        
+        <!-- Прогресс -->
+        <div style="background: var(--card-bg); padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--border-color);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                <strong>Прогресс за день:</strong>
+                <span id="progress-text">0 / 0 ккал</span>
+            </div>
+            <div style="background:#e5e7eb; border-radius:10px; height:20px; overflow:hidden;">
+                <div id="progress-bar" style="background:var(--accent); height:100%; width:0%; transition: width 0.5s, background-color 0.5s;"></div>
+            </div>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:5px;" id="status-msg">Рассчитайте норму в калькуляторе.</p>
+        </div>
+
+        <!-- Умный помощник -->
+        <div style="margin-bottom: 2rem; padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 20px; background: var(--card-bg);">
+            <h3 style="margin-top:0; display:flex; align-items:center; gap:10px;">💡 Что съесть?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Остаток: <strong id="remaining-cal" style="color:var(--accent)">0</strong> ккал.
+            </p>
+            <button onclick="suggestSnack()" style="width:100%; background: linear-gradient(90deg, var(--accent), var(--accent-hover));">✨ Подобрать вариант</button>
+            <div id="snack-result" style="margin-top: 1rem; min-height: 20px;"></div>
+        </div>
+
+        <!-- Трекер воды -->
+        <div style="margin-bottom: 2rem; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); border-radius: 20px; background: var(--card-bg);">
+            <h3 style="margin-top:0;">💧 Трекер воды</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Цель: <strong id="water-goal">2000</strong> мл | Выпито: <strong id="water-current">0</strong> мл
+            </p>
+            <div style="position: relative; width: 80px; height: 120px; margin: 0 auto 1rem; border: 3px solid var(--accent); border-radius: 0 0 15px 15px; overflow: hidden; background: rgba(255,255,255,0.1);">
+                <div id="water-fill" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(to top, #3b82f6, #60a5fa); transition: height 0.5s ease-out;"></div>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button onclick="addWater(250)" style="padding: 8px 16px; font-size: 0.9rem;">+250 мл 🥤</button>
+                <button onclick="addWater(500)" style="padding: 8px 16px; font-size: 0.9rem;">+500 мл 🍶</button>
+                <button onclick="resetWater()" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 8px 16px; font-size: 0.9rem;">Сброс</button>
+            </div>
+        </div>
+
+        <!-- Форма добавления -->
+        <div class="add-food">
+            <input type="text" id="food-name" placeholder="Название продукта" inputmode="text">
+            <input type="number" id="food-cal" placeholder="Ккал">
+            <button onclick="addFood()">Добавить</button>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+            <h3>Сегодня съедено:</h3>
+            <button onclick="clearDiary()" style="background:#ef4444; font-size:0.8rem; padding:5px 10px;">Очистить</button>
+        </div>
+        
+        <table id="diary-table">
+            <thead><tr><th>Продукт</th><th>Ккал</th><th>Действие</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </main>
+    <footer><p>Источник: Локальное хранилище браузера</p></footer>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Переключить тему"><span id="theme-icon"></span></button>
+    <script src="js/main.js"></script>
+    <script src="js/diary.js"></script>
+</body>
+</html>
