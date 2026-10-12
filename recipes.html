@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Рецепты по калорийности</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <header><h1> Рецепты по калорийности</h1></header>
+    <nav>
+        <ul>
+            <li><a href="index.html">🧮 Калькулятор</a></li>
+            <li><a href="diary.html">📝 Дневник</a></li>
+            <li><a href="products.html">🥗Продукты</a></li>
+            <li><a href="recipes.html" class="active"> 🍳Рецепты</a></li>
+            <li><a href="stats.html">📊 Статистика</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Рецепты по калорийности</h2>
+        <p>Используйте поиск или выберите категорию</p>
+        
+        <!-- Строка поиска -->
+        <input type="text" id="search-input" placeholder="🔍 Поиск рецептов (например, борщ, курица)..." 
+               oninput="searchRecipes()" 
+               style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1rem;">
+        
+        <!-- Фильтры -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 2rem; justify-content: center;">
+            <button onclick="filterRecipes('all')">Все рецепты</button>
+            <button onclick="filterRecipes('low')">До 300 ккал 🥗</button>
+            <button onclick="filterRecipes('medium')">300-500 ккал 🍝</button>
+            <button onclick="filterRecipes('high')">500+ ккал 🍖</button>
+        </div>
+
+        <!-- Сетка рецептов -->
+        <div id="recipes-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+            <!-- Рецепты будут добавлены через JavaScript -->
+        </div>
+    </main>
+    <footer><p>Рецепты собраны из открытых источников</p></footer>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Переключить тему"><span id="theme-icon"></span></button>
+    <script src="js/main.js"></script>
+    <script src="js/recipes.js"></script>
+</body>
+</html>

@@ -147,3 +147,75 @@ footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size:
     .add-food { flex-direction: column; }
     .add-food input, .add-food button { width: 100%; }
 }
+
+/* Универсальный стиль для картинок в контенте */
+.content-image {
+    max-width: 100%;       /* Не вылезает за пределы контейнера */
+    height: auto;          /* Сохраняет пропорции */
+    border-radius: 12px;   /* Скругленные углы */
+    box-shadow: var(--shadow); /* Тень как у карточек */
+    display: block;
+    margin: 1.5rem auto;   /* Центрирование */
+    transition: transform 0.3s ease;
+}
+
+.content-image:hover {
+    transform: scale(1.02); /* Легкое увеличение при наведении */
+}
+
+/* Стили для карточек рецептов */
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.recipe-card details {
+    margin-top: 10px;
+}
+
+.recipe-card summary {
+    padding: 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.recipe-card summary:hover {
+    background: rgba(22, 101, 52, 0.1);
+}
+
+.recipe-card ul {
+    margin: 10px 0;
+}
+
+.recipe-card li {
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+/* Стили для карточек рецептов */
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.recipe-card details {
+    margin-top: 10px;
+}
+
+.recipe-card summary {
+    padding: 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.recipe-card summary:hover {
+    background: rgba(22, 101, 52, 0.1);
+}
+
+.recipe-card ul {
+    margin: 10px 0;
+}
+
+.recipe-card li {
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
