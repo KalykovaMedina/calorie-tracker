@@ -34,3 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         resultBlock.scrollIntoView({ behavior: 'smooth' });
     });
 });
+// Функция сброса калькулятора
+function resetCalculator() {
+    if(confirm("Вы уверены, что хотите сбросить расчет нормы калорий?")) {
+        localStorage.removeItem('userGoalCal');
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('calc-form').reset();
+        alert('✅ Данные калькулятора сброшены!');
+    }
+}
